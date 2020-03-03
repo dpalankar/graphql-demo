@@ -1,0 +1,67 @@
+{
+  Characters(page: {start: 1, limit: 4},
+    where:{name:{EQ:"Luke Skywalker"} AND:{id:{EQ:"1000"}}}){
+    pages
+    total
+    select {
+      id
+      name
+      appearsIn
+    }
+  }
+}
+
+{
+  Users(page: {start: 1, limit: 2}, 
+    where: {name: {LIKE: "Test"}, AND: {id: {EQ: "3"}}}) {
+    select {
+      id
+      name
+    }
+  }
+}
+
+--------- SORT ----------------------------
+{
+  Users(page: {start: 1, limit: 2}, 
+    where: {name: {LIKE: "Test"}}) {
+    select {
+      id
+      name(orderBy:DESC)
+    }
+  }
+}
+
+--------- SINGLE RECORD ------------------
+{
+  User(id:"1" ){
+    id,
+    name
+    email,
+    address
+  }
+}
+------------------------COMBINED RECORD -------------------------
+
+query {
+  Users(page:{start:1,limit:2},where:{name:{EQ:"Lokesh"}}){
+    select{
+      id,
+      name,
+      email
+    },
+    pages,
+    total
+  },
+  User(id:"2" ){
+    id,
+    name
+    email,
+    address
+  }
+}
+
+
+MUTATION
+
+User(id: "dude",name:"test",email:"test@gmail.com")
